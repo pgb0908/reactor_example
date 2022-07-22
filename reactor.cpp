@@ -7,6 +7,7 @@
 #include <iostream>
 #include <unistd.h>
 
+
 void Reactor::dispatch_event_handlers() {
     dispatching_ = true;
 
@@ -114,7 +115,7 @@ void Reactor::handle_wakeup() {
 
 ///////////////// constructure /////////////////////
 
-Reactor::Reactor() {
+Reactor::Reactor() : dispatching_(false){
     /* Create a pipe for unblocking the select system call */
     int ret = pipe(wakeup_pipe_.data());
     if (ret != 0) {
