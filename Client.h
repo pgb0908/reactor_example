@@ -14,7 +14,7 @@
 class IPCClient: public EventHandler
 {
 public:
-    IPCClient(Reactor& reactor, std::string local_address);
+    IPCClient( std::string local_address);
     ~IPCClient () override;
 
     /**
@@ -45,10 +45,6 @@ private:
     */
     std::atomic<bool> ipcclient_done_;
 
-    /**
-     * \brief A reactor which is used for notifications about non-blocking writing to the Unix domain socket
-     */
-    Reactor& reactor_;
 
 };
 

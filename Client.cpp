@@ -8,8 +8,8 @@
 
 
 /* Reactor not used since this client can write anytime to the used Unix domain socket (no contention) */
-IPCClient::IPCClient(Reactor& reactor, std::string local_address)
-        : reactor_(reactor), local_address_(std::move(local_address)){}
+IPCClient::IPCClient(std::string local_address)
+        : local_address_(std::move(local_address)){}
 
 IPCClient::~IPCClient (){
 

@@ -65,7 +65,7 @@ int main() {
     IPCServer ipcserver(reactor, "./socket");
     ipcserver.start();
     // in this example the client does not register any handler to the reactor
-    IPCClient ipcclient1(reactor, "./socket");
+    IPCClient ipcclient1("./socket");
     ipcclient1.start();
 
     handle_signals();

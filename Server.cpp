@@ -56,6 +56,7 @@ void IPCServer::do_something_else(){
 
         }});
     thread.detach();
+
 }
 
 /**
