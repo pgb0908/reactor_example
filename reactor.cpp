@@ -134,33 +134,33 @@ Reactor::~Reactor() {
 ///////////////// constructure /////////////////////
 
 void
-Reactor::register_event_handler(int handle, EventHandler *event_handler, unsigned int event_type_mask, bool one_shot) {
-    if (event_type_mask & EventType::kReadEvent) {
+Reactor::register_event_handler(int handle, EventHandler *event_handler, EventType eventType, bool one_shot) {
+    if (eventType == EventType::kReadEvent) {
         read_event_handlers_.insert(std::pair<int, EventHandlerMapEntry>(handle, {event_handler, one_shot}));
     }
-    if (event_type_mask & EventType::kWriteEvent) {
+    else if (eventType == EventType::kWriteEvent) {
         write_event_handlers_.insert(std::pair<int, EventHandlerMapEntry>(handle, {event_handler, one_shot}));
     }
-    if (event_type_mask & EventType::kExceptionEvent) {
+    else if (eventType == EventType::kExceptionEvent) {
         exception_event_handlers_.insert(std::pair<int, EventHandlerMapEntry>(handle, {event_handler, one_shot}));
     }
-    if (!dispatching_) {
+    else if (!dispatching_) {
         send_wakeup();
     }
 }
 
-void Reactor::unregister_event_handler(int handle, unsigned int event_type_mask) {
+void Reactor::unregister_event_handler(int handle, EventType eventType) {
     size_t count = 0;
-    if (event_type_mask & EventType::kReadEvent) {
+    if (eventType == EventType::kReadEvent) {
         count += read_event_handlers_.erase(handle);
     }
-    if (event_type_mask & EventType::kWriteEvent) {
+    else if (eventType == EventType::kWriteEvent) {
         count += write_event_handlers_.erase(handle);
     }
-    if (event_type_mask & EventType::kExceptionEvent) {
+    else if (eventType == EventType::kExceptionEvent) {
         count += exception_event_handlers_.erase(handle);
     }
-    if (count > 0 && !dispatching_) {
+    else if (count > 0 && !dispatching_) {
         send_wakeup();
     }
 }

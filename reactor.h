@@ -11,7 +11,7 @@
 #include <map>
 #include <atomic>
 
-enum EventType {
+enum class EventType {
     kReadEvent = 1,
     kWriteEvent = 2,
     kExceptionEvent = 3
@@ -22,10 +22,10 @@ public:
     Reactor();
     ~Reactor();
 
-    void register_event_handler(int handle, EventHandler* event_handler, unsigned int event_type_mask,
+    void register_event_handler(int handle, EventHandler* event_handler, EventType eventType,
                                 bool one_shot = false);
 
-    void unregister_event_handler(int handle, unsigned int event_type_mask);
+    void unregister_event_handler(int handle, EventType eventType);
     void handle_events(const struct timeval* timeout = nullptr);
     void unblock();
 
